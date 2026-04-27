@@ -1,0 +1,25 @@
+# Optimize Docker build context
+**/.git
+**/.gitignore
+**/README.md
+**/LICENSE
+**/.vscode
+**/.idea
+**/node_modules
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/coverage
+**/dist
+**/build
+**/.env
+**/.env.*
+**/tmp
+**/temp
+**/*.log
+
+# Keep only what's needed for container build
+!justfile
+!shell/
+!valeo-*.crt
+!Dockerfile

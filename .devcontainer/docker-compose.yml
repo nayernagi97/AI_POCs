@@ -1,0 +1,25 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile # your renamed Dockerfile.user
+      args:
+        - DEV_USER_NAME=${DEV_USER_NAME} # pass specific vars as build args if needed
+    tty: true
+    stdin_open: true
+    env_file:
+      - .env # injects all vars into the container
+    volumes:
+      - e:\AI_POCs:/workspace
+      - ollama_models:/ollama-models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all # or count: 1 for a single GPU
+              capabilities: [ gpu, compute, utility ]
+
+volumes:
+  ollama_models:
+    external: true # reuse the volume already created by devcontainer

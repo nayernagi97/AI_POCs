@@ -1,0 +1,198 @@
+{
+  "name": "${localWorkspaceFolderBasename}",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "dev",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "latest",
+      "moby": true
+    }
+  },
+  "runArgs": [
+    "--gpus",
+    "all"
+  ],
+  "mounts": [
+    "source=ollama_models,target=/ollama-models,type=volume",
+    "source=kilocode_local_data,target=/home/vscode/.kilo-global,type=volume"
+  ],
+  "remoteEnv": {
+    "OLLAMA_MODELS": "/ollama-models"
+  },
+  "workspaceFolder": "/workspace",
+  // 2. Cleaned up postCreateCommand (locales are now handled in the Dockerfile)
+  "postCreateCommand": "sudo ln -sfn /home/vscode/.kilo-global /workspace/.kilo",
+  "postStartCommand": "",
+  // 3. Enable the remote user created in the Dockerfile
+  "remoteUser": "NERO",
+  "shutdownAction": "stopContainer",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "kilocode.kilo-code",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "vivaxy.vscode-conventional-commits",
+        "GitHub.vscode-pull-request-github",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.vscode-python-envs",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-renderers",
+        "charliermarsh.ruff",
+        "samuelcolvin.jinjahtml",
+        "docker.docker",
+        "ms-azuretools.vscode-docker",
+        "ms-azuretools.vscode-containers",
+        "hashicorp.terraform",
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        "mechatroner.rainbow-csv",
+        "janisdd.vscode-edit-csv",
+        "mikestead.dotenv",
+        "bruno-api-client.bruno",
+        "DavidAnson.vscode-markdownlint",
+        "yzhang.markdown-all-in-one",
+        "nefrob.vscode-just-syntax",
+        "exiasr.hadolint",
+        "ms-vscode-remote.remote-containers",
+        "mathematic.vscode-pdf",
+        "bierner.markdown-mermaid",
+        "PKief.material-icon-theme",
+        "Cardinal90.multi-cursor-case-preserve",
+        "usernamehw.errorlens",
+        "moshfeu.compare-folders",
+        "yokawasa.jwt-debugger",
+        "chrisdias.vscode-opennewinstance",
+        "ms-vscode.makefile-tools",
+        "42Crunch.vscode-openapi",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "christian-kohler.npm-intellisense",
+        "ritwickdey.LiveServer",
+        "wix.vscode-import-cost",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "burkeholland.simple-react-snippets",
+        "-ms-python.autopep8",
+        "-ms-azuretools.vscode-azureterraform"
+      ],
+      "settings": {
+        "telemetry.telemetryLevel": "off",
+        "window.restoreWindows": "none",
+        "workbench.editor.restoreViewState": false,
+        "workbench.editor.alwaysShowEditorActions": true,
+        "workbench.tree.enableStickyScroll": true,
+        "workbench.iconTheme": "material-icon-theme",
+        "explorer.compactFolders": false,
+        "editor.fontLigatures": true,
+        "editor.fontFamily": "'Cascadia Code', 'Consolas', 'Courier New', 'monospace'",
+        "editor.inlineSuggest.enabled": true,
+        "editor.stickyScroll.enabled": true,
+        "editor.aiStats.enabled": true,
+        // 4. Set Zsh as the default terminal in VS Code
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        },
+        "terminal.integrated.scrollback": 10000,
+        "terminal.integrated.fontFamily": "'Cascadia Code NF', 'Consolas', 'Courier New', 'monospace'",
+        "terminal.integrated.stickyScroll.enabled": true,
+        "terminal.integrated.persistentSessionReviveProcess": "never",
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "[typescript][typescriptreact][javascript][javascriptreact]": {
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          },
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json][jsonl][jsonc]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[yaml]": {
+          "editor.autoIndent": "full",
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "vscode.html-language-features"
+        },
+        "[terraform]": {
+          "editor.formatOnSave": true
+        },
+        "[markdown]": {
+          "editor.wordWrap": "on",
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "files.associations": {
+          ".env*": "dotenv",
+          ".zimrc": "shellscript"
+        },
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+        "interactiveWindow.executeWithShiftEnter": true,
+        "chat.editRequests": "hover",
+        "chat.todoListTool.enabled": true,
+        "chat.tools.terminal.autoApprove": {
+          "/^git (status|log)$/": true
+        },
+        "github.copilot.nextEditSuggestions.enabled": true,
+        "github.copilot.enable": {
+          "*": true,
+          "plaintext": true,
+          "markdown": true,
+          "scminput": false
+        },
+        "github.copilot.chat.codesearch.enabled": true,
+        "github.copilot.chat.editor.temporalContext.enabled": true,
+        "extensions.autoUpdate": "onlyEnabledExtensions",
+        "python.analysis.fixAll": [
+          "source.unusedImports"
+        ],
+        "python.REPL.sendToNativeREPL": true,
+        "python.analysis.inlayHints.functionReturnTypes": true,
+        "python.terminal.shellIntegration.enabled": true,
+        "debugpy.debugJustMyCode": false,
+        "vsicons.dontShowNewVersionMessage": true,
+        "notebook.lineNumbers": "on",
+        "notebook.editorOptionsCustomizations": {
+          "editor.tabSize": 2,
+          "editor.indentSize": 2,
+          "editor.insertSpaces": true
+        },
+        "errorLens.messageTemplate": "$message ($source)",
+        "errorLens.onSave": true,
+        "git.openRepositoryInParentFolders": "always",
+        "geminicodeassist.project": "valeo-cp2384",
+        "geminicodeassist.enableTelemetry": false,
+        "remote.autoForwardPortsSource": "process",
+        "docker.extension.enableComposeLanguageServer": false,
+        "dev.containers.workspaceMountConsistency": "consistent",
+        "conventionalCommits.autoCommit": false,
+        "sonarlint.automaticAnalysis": true
+      }
+    }
+  },
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "4gb",
+    "storage": "32gb",
+    "gpu": "optional"
+  },
+  "updateRemoteUserUID": true
+}
